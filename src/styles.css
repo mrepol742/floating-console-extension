@@ -1,0 +1,89 @@
+#floating-toggle-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #6200ee;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 99999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#floating-console {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 400px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 99999;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    font-family: "Roboto", sans-serif;
+}
+
+#floating-console.light-mode {
+    background: #ffffff;
+    color: #000;
+}
+
+#floating-console.dark-mode {
+    background: #1e1e1e;
+    color: #eee;
+}
+
+#console-header {
+    background: #6200ee;
+    color: white;
+    padding: 10px;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#console-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.log-error {
+    background-color: rgba(255, 82, 82, 0.2);
+    color: #ff5252 !important;
+}
+
+.log-warn {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #ffc107 !important;
+}
+
+.log-log,
+.log-info,
+.log-error,
+.log-warn {
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 5px;
+    color: inherit;
+
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+button {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
