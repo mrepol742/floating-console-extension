@@ -1,10 +1,17 @@
 if (!window.__FLOATING_CONSOLE_LOADED__) {
   window.__FLOATING_CONSOLE_LOADED__ = true;
 
+  let unreadCount = 0;
+
   const toggleBtn = document.createElement("div");
   toggleBtn.id = "floating-toggle-btn";
   toggleBtn.innerText = "🛠️";
   document.body.appendChild(toggleBtn);
+
+  const badge = document.createElement("span");
+  badge.id = "floating-badge";
+  badge.textContent = "0";
+  toggleBtn.appendChild(badge);
 
   const panel = document.createElement("div");
   panel.id = "floating-console";
@@ -27,7 +34,13 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
   const body = panel.querySelector("#console-body");
 
   toggleBtn.onclick = () => {
-    panel.style.display = panel.style.display === "none" ? "flex" : "none";
+    const isOpening = panel.style.display === "none";
+    panel.style.display = isOpening ? "flex" : "none";
+
+    if (isOpening) {
+      unreadCount = 0;
+      badge.classList.remove("show");
+    }
   };
 
   panel.querySelector("#close-console").onclick = () => {
@@ -74,6 +87,12 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
       .map((a) => (typeof a === "object" ? JSON.stringify(a) : a))
       .join(" ");
     body.appendChild(msg);
+
+    if (panel.style.display === "none") {
+      unreadCount++;
+      badge.textContent = unreadCount;
+      badge.classList.add("show");
+    }
 
     if (isNearBottom)
       body.scrollTo({

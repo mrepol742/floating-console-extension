@@ -41,6 +41,36 @@
     color: #eee;
 }
 
+#floating-toggle-btn {
+    position: fixed;
+}
+
+#floating-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background: #ff3b3b;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+#floating-badge.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
 #console-header {
     background: #6200ee;
     color: white;
