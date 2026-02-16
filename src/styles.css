@@ -106,7 +106,9 @@
     padding: 5px;
     margin-bottom: 5px;
     color: inherit;
-
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
     word-break: break-word;
     overflow-wrap: anywhere;
 }
@@ -116,4 +118,41 @@ button {
     border: none;
     color: white;
     cursor: pointer;
+}
+
+.log-line-number {
+    min-width: 24px;
+    opacity: 0.4;
+    font-size: 12px;
+    user-select: none;
+}
+
+.log-text {
+    flex: 1;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+#console-search {
+    display: flex;
+    gap: 6px;
+    padding: 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+#search-input {
+    flex: 1;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.2);
+    outline: none;
+}
+
+#search-btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background: #6200ee;
+    color: white;
 }

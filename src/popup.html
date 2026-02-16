@@ -1,10 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Floating Console</title>
-</head>
-<body>
-  <button id="toggle-console">Toggle Console</button>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Floating Console</title>
+        <style>
+            body {
+                margin: 0;
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    sans-serif;
+                width: 280px;
+                background: #f5f5f5;
+            }
+
+            /* Navbar */
+            .navbar {
+                background: #6200ee;
+                color: white;
+                padding: 12px 16px;
+                font-size: 14px;
+                font-weight: 600;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .domain {
+                font-size: 12px;
+                font-weight: 400;
+                opacity: 0.85;
+                margin-top: 4px;
+                word-break: break-all;
+            }
+
+            /* Content area */
+            .content {
+                padding: 16px;
+            }
+
+            .section-title {
+                font-size: 12px;
+                text-transform: uppercase;
+                color: #666;
+                margin-bottom: 8px;
+                letter-spacing: 0.5px;
+            }
+
+            /* Button */
+            button {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 6px;
+                background: #6200ee;
+                color: white;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background 0.2s ease;
+            }
+
+            button:hover {
+                background: #5300d6;
+            }
+
+            button:active {
+                transform: scale(0.98);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
+            Floating Console
+            <div class="domain" id="current-domain">Loading...</div>
+        </div>
+
+        <div class="content">
+            <div class="section-title">Actions</div>
+            <button id="toggle-console">Toggle Console</button>
+        </div>
+
+        <script src="popup.js"></script>
+    </body>
 </html>

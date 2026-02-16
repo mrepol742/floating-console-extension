@@ -2,6 +2,7 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
   window.__FLOATING_CONSOLE_LOADED__ = true;
 
   let unreadCount = 0;
+  let logIndex = 0;
 
   const toggleBtn = document.createElement("div");
   toggleBtn.id = "floating-toggle-btn";
@@ -25,6 +26,12 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
         <button id="close-console">✖</button>
       </div>
     </div>
+
+    <div id="console-search">
+      <input type="text" id="search-input" placeholder="Search logs..." />
+      <button id="search-btn">🔍</button>
+    </div>
+
     <div id="console-body"></div>
   `;
   document.body.appendChild(panel);
@@ -81,24 +88,32 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
     const isNearBottom =
       body.scrollHeight - body.scrollTop - body.clientHeight < 20;
 
+    logIndex++;
+
     const msg = document.createElement("div");
     msg.className = `log-${type}`;
-    msg.textContent = args
+
+    const lineNumber = document.createElement("span");
+    lineNumber.className = "log-line-number";
+    lineNumber.textContent = logIndex;
+
+    const text = document.createElement("span");
+    text.className = "log-text";
+    text.textContent = args
       .map((a) => (typeof a === "object" ? JSON.stringify(a) : a))
       .join(" ");
+
+    msg.appendChild(lineNumber);
+    msg.appendChild(text);
+
     body.appendChild(msg);
 
-    if (panel.style.display === "none") {
-      unreadCount++;
-      badge.textContent = unreadCount;
-      badge.classList.add("show");
-    }
-
-    if (isNearBottom)
+    if (isNearBottom) {
       body.scrollTo({
         top: body.scrollHeight,
         behavior: "smooth",
       });
+    }
   }
 
   const script = document.createElement("script");
@@ -110,5 +125,36 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
     if (event.data.source === "page-console") {
       appendMessage(event.data.type, event.data.args);
     }
+  });
+
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "toggleConsole") {
+      toggleBtn.style.display =
+        toggleBtn.style.display === "none" ? "flex" : "none";
+    }
+  });
+
+  const searchInput = panel.querySelector("#search-input");
+  const searchBtn = panel.querySelector("#search-btn");
+
+  function filterLogs() {
+    const query = searchInput.value.toLowerCase().trim();
+    const logs = body.querySelectorAll("div");
+
+    logs.forEach((log) => {
+      if (!query) {
+        log.style.display = "flex";
+        return;
+      }
+
+      const text = log.textContent.toLowerCase();
+      log.style.display = text.includes(query) ? "flex" : "none";
+    });
+  }
+
+  searchBtn.addEventListener("click", filterLogs);
+  searchInput.addEventListener("input", filterLogs);
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") filterLogs();
   });
 }
