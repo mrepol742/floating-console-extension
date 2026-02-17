@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Floating Console",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Draggable console overlay with dark/light modes",
   "permissions": ["activeTab", "scripting"],
   "icons": {
@@ -23,13 +23,12 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["./src/content.js"],
-      "css": ["./src/styles.css"]
+      "js": ["./src/content.js"]
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["src/inject.js"],
+      "resources": ["src/inject.js", "src/icons/*.svg"],
       "matches": ["<all_urls>"]
     }
   ]
