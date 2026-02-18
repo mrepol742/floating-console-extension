@@ -1,48 +1,31 @@
 (function () {
-  const originalLog = console.log;
-  const originalError = console.error;
-  const originalWarn = console.warn;
-  const originalInfo = console.info;
-  const originalDebug = console.debug;
-  const originalTrace = console.trace;
+  const methods = ["log", "debug", "info", "warn", "error"];
 
-  console.log = function (...args) {
-    originalLog.apply(console, args);
-    window.postMessage({ source: "page-console", type: "log", args }, "*");
-  };
+  methods.forEach((method) => {
+    const original = console[method];
 
-  console.error = function (...args) {
-    originalError.apply(console, args);
+    Object.defineProperty(console, method, {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function (...args) {
+        original.apply(this, args);
 
-    const processedArgs = args.map((arg) => {
-      if (arg instanceof Error)
-        return `${arg.name}: ${arg.message}\n${arg.stack}`;
-      return arg;
+        const processedArgs = args.map((arg) => {
+          if (arg instanceof Error)
+            return `${arg.name}: ${arg.message}\n${arg.stack}`;
+          return arg;
+        });
+
+        window.postMessage(
+          {
+            source: "page-console",
+            type: method,
+            args: processedArgs,
+          },
+          "*",
+        );
+      },
     });
-
-    window.postMessage(
-      { source: "page-console", type: "error", args: processedArgs },
-      "*",
-    );
-  };
-
-  console.warn = function (...args) {
-    originalWarn.apply(console, args);
-    window.postMessage({ source: "page-console", type: "warn", args }, "*");
-  };
-
-  console.info = function (...args) {
-    originalInfo.apply(console, args);
-    window.postMessage({ source: "page-console", type: "info", args }, "*");
-  };
-
-  // console.debug = function (...args) {
-  //   originalDebug.apply(console, args);
-  //   window.postMessage({ source: "page-console", type: "debug", args }, "*");
-  // };
-
-  // console.trace = function (...args) {
-  //   originalTrace.apply(console, args);
-  //   window.postMessage({ source: "page-console", type: "trace", args }, "*");
-  // };
+  });
 })();
