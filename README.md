@@ -16,5 +16,30 @@ A draggable in-page debug console with dark and light themes. View logs, errors,
 6. Click the console icon in the top right corner of the page to toggle the console visibility.
 7. Use the console to view logs, errors, and warnings in real-time as you interact with the webpage.
 
+## Keyboard Shortcuts
+
+Use these shortcuts to control the in-page debug console without opening DevTools.
+
+### Toggle Console Visibility
+Show or hide the debug console instantly.
+
+- **Windows / Linux:** `Ctrl + Shift + Y`
+- **macOS:** `Command + Shift + Y`
+
+### Toggle Floating Mode
+Switch between docked and floating panel modes.
+
+- **Windows / Linux:** `Ctrl + Shift + U`
+- **macOS:** `Command + Shift + U`
+
+### Customize Shortcuts
+You can change these shortcuts anytime:
+
+1. Open `chrome://extensions/shortcuts`
+2. Find the extension
+3. Assign your preferred key combinations
+
+> **Tip:** Choose shortcuts that don’t conflict with your workflow or other extensions.
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

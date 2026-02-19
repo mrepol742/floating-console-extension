@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Floating Console",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Draggable console overlay with dark/light modes",
   "permissions": ["activeTab", "scripting"],
   "icons": {
@@ -32,5 +32,21 @@
       "resources": ["src/inject.js", "src/icons/*.svg"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "commands": {
+    "toggle-console": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Toggle floating console visibility"
+    },
+    "toggle-float": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+Shift+U"
+      },
+      "description": "Toggle floating button visibility"
+    }
+  }
 }

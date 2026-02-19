@@ -314,6 +314,12 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
 
       body.appendChild(msg);
 
+      if (panel.style.display === "none") {
+        unreadCount++;
+        badge.textContent = unreadCount;
+        badge.classList.add("show");
+      }
+
       if (isNearBottom) {
         body.scrollTo({
           top: body.scrollHeight,
@@ -329,9 +335,21 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
     });
 
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-      if (message.action === "toggleConsole") {
+      if (
+        message.action === "toggleConsole" ||
+        message.action === "toggle-float"
+      ) {
         toggleBtn.style.display =
           toggleBtn.style.display === "none" ? "flex" : "none";
+      }
+      if (message.action === "toggle-console") {
+        if (panel.style.display === "none") {
+          panel.style.display = "flex";
+          unreadCount = 0;
+          badge.classList.remove("show");
+        } else {
+          panel.style.display = "none";
+        }
       }
     });
 
