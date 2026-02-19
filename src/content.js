@@ -240,6 +240,7 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
 
     panel.querySelector("#clear-console").onclick = () => {
       body.innerHTML = "";
+      logIndex = 0;
     };
 
     const searchInput = panel.querySelector("#search-input");
