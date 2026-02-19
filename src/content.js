@@ -101,6 +101,10 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
         align-items: center;
     }
 
+    #console-header span {
+        font-size: 15px;
+    }
+
     #console-body {
         flex: 1;
         padding: 10px;
@@ -141,10 +145,13 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
     }
 
     .log-line-number {
-        min-width: 24px;
+        min-width: 10px;
         opacity: 0.4;
-        font-size: 12px;
         user-select: none;
+    }
+
+    .log-text {
+        font-size: 12px;
     }
 
     .log-text {
@@ -165,6 +172,7 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
         padding: 6px 8px;
         border-radius: 6px;
         border: 1px solid rgba(0,0,0,0.2);
+        color: inherit;
         outline: none;
         background: transparent;
     }
@@ -195,7 +203,7 @@ if (!window.__FLOATING_CONSOLE_LOADED__) {
     panel.classList.add("light-mode");
     panel.innerHTML = `
     <div id="console-header">
-      Floating Console
+      <span>Floating Console</span>
       <div>
         <button id="clear-console">
           <img src="${chrome.runtime.getURL("src/icons/broom-solid-full.svg")}" alt="Clear" width="16" height="16" />
