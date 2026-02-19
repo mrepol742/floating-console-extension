@@ -9,7 +9,12 @@
       enumerable: true,
       writable: true,
       value: function (...args) {
-        original.apply(this, args);
+        if (
+          !["Resource failed:", "Fetch failed:", "XHR failed:"].includes(
+            args[0],
+          )
+        )
+          original.apply(this, args);
 
         const processedArgs = args.map((arg) => {
           if (arg instanceof Error)
@@ -64,12 +69,12 @@
   /**
    * Capture XHR failures
    */
-   const originalOpen = XMLHttpRequest.prototype.open;
+  const originalOpen = XMLHttpRequest.prototype.open;
 
-   XMLHttpRequest.prototype.open = function (...args) {
-     this.addEventListener("error", () => {
-       console.error("XHR failed:", args[1]);
-     });
-     return originalOpen.apply(this, args);
-   };
+  XMLHttpRequest.prototype.open = function (...args) {
+    this.addEventListener("error", () => {
+      console.error("XHR failed:", args[1]);
+    });
+    return originalOpen.apply(this, args);
+  };
 })();
